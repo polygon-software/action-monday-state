@@ -47,15 +47,15 @@ jobs:
 
 ## Variables
 
-| Variable | Required | Example | Description  |
-| ------------- |:-------------:| -----:| -----:|
-| monday-token | true | E3JDIJ.HJDI737JD... | API Access token for monday.com |
-| text | true | ${{ github.event.pull_request.title }} | Text that includes the Item ID.  |
-| status | true | ) | Item-Status text that shall be set |
-| status-column-title | depends | Development Stage | Title of column of which status shall be updated  |
-| status-column-id | depends | status1 | ID of column of which status shall be updated. If ID is specified, Title is ignored.  |
-| prefix | false | #( | String that must occur right before the item ID, like "#(" for fix(#1234567890) |
-| postfix | false | ) | String that must occur right after the item ID, like ")" for fix(#1234567890) |
+| Variable | Required |                              Example | Description  |
+| ------------- |:-------------:|-------------------------------------:| -----:|
+| monday-token | true |                  E3JDIJ.HJDI737JD... | API Access token for monday.com |
+| text | true | ${{github.event.pull_request.title}} | Text that includes the Item ID.  |
+| status | true |                                In PR | Item-Status text that shall be set |
+| status-column-title | depends |                    Development Stage | Title of column of which status shall be updated  |
+| status-column-id | depends |                              status1 | ID of column of which status shall be updated. If ID is specified, Title is ignored.  |
+| prefix | false |                                   #( | String that must occur right before the item ID, like "#(" for fix(#1234567890) |
+| postfix | false |                                    ) | String that must occur right after the item ID, like ")" for fix(#1234567890) |
 
 ## Credits
 
