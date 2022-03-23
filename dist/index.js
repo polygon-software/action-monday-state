@@ -23299,10 +23299,6 @@ var __webpack_exports__ = {};
 // ESM COMPAT FLAG
 __nccwpck_require__.r(__webpack_exports__);
 
-// NAMESPACE OBJECT: ./src/monday.js
-var monday_namespaceObject = {};
-__nccwpck_require__.r(monday_namespaceObject);
-
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(186);
 // EXTERNAL MODULE: ./node_modules/monday-sdk-js/src/index.js
@@ -23505,7 +23501,7 @@ const config = {
   multiple,
 }
 
-;(0,monday_namespaceObject.action)(config)
+action(config)
   .then((itemIds) => {
     core.info(`Successfully updated status of item with ID ${JSON.stringify(itemIds)}`)
     core.setOutput("item-id", JSON.stringify(itemIds));
