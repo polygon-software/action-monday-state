@@ -1,0 +1,96 @@
+name: Build & Release
+
+on:
+  push:
+    branches: [master, main]
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v2.1.4
+        with:
+          node-version: 12
+
+      - name: Get yarn cache directory path 🛠
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Cache node_modules 📦
+        uses: actions/cache@v2.1.4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies 👨🏻‍💻
+        run: yarn
+
+      - name: Tests
+        env:
+          MONDAY_TOKEN: ${{ secrets.MONDAY_TOKEN }}
+        run: yarn test
+
+      - name: Upload Testing Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: reports
+          path: reports
+
+      - name: Set version number
+        uses: polygon-software/npm-version-date@master
+        with:
+          schema: "V.yyMM.P"
+          V: 1
+          increase-patch: true
+
+      - name: Build Node Module
+        run: yarn build
+
+      - name: Commit new dist folder
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: New Build for production environmet
+          commit_options: '--no-verify --signoff'
+          file_pattern: .
+          commit_user_name: Bot (Autocommit Actions)
+          commit_user_email: actions@github.com
+          commit_author: Github Action <actions@github.com>
+          push_options: '--force'
+
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@master
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: "fix(#2453434908): Finished item on monday.com"
+          status-column-title: 'Status Column!'
+          status: 'State Test'
+
+  sonarcloud:
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Download Testing Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: reports
+          path: reports
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

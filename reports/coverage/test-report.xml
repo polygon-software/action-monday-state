@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="G:\Github Repos\action-monday-state\test\monday.test.js">
+        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="251"/>
+        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="459"/>
+        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="726"/>
+        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="541"/>
+        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="1076"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.1: Parse from simple strings" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.2: Fail if string contains no ID" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.3: Parse with prefix and postfix" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.4: Parse Semantic PR Title" duration="0"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.5: Parse Semantic PR Title with specified prefix/postfix" duration="0"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.6: Parse commit message" duration="0"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="1"/>
+    </file>
+</testExecutions>

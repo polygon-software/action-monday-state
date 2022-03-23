@@ -1,0 +1,34 @@
+name: 'Set monday.com Item State'
+author: "PolygonSoftware"
+branding:
+  icon: 'hash'
+  color: 'orange'
+description: 'Set state of item on monday.com mentioned in a commit message or PR Title'
+inputs:
+  monday-token:
+    description: 'API Access token for monday.com'
+    required: true
+  text:
+    description: 'Text that includes the Item ID. Example for PR Title: ${{ github.event.pull_request.title }}'
+    required: true
+  status-column-title:
+    description: 'Title of column of which status shall be updated'
+    required: false
+  status-column-id:
+    description: 'ID of column of which status shall be updated'
+    required: false
+  prefix:
+    description: 'String that must occur right before the item ID, like "#(" for fix(#1234567890)'
+    required: false
+  postfix:
+    description: 'String that must occur right after the item ID, like ")" for fix(#1234567890)'
+    required: false
+  status:
+    description: 'Item-Status text that shall be set'
+    required: true
+outputs:
+  item-id:
+    description: "The monday.com item-ID that for which the status was set"
+runs:
+  using: "node12"
+  main: "dist/index.js"
