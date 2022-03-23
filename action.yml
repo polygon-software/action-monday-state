@@ -23,9 +23,12 @@ inputs:
   postfix:
     description: 'String that must occur right after the item ID, like ")" for fix(#1234567890)'
     required: false
-  status:
+  set-status:
     description: 'Item-Status text that shall be set'
     required: true
+  require-status:
+    description: 'Only change the status of the item if it currently has this status'
+    required: false
   multiple:
     description: 'If multiple Item IDs are found, set status of all of them. Default: Only first found Item ID is used.'
     required: false

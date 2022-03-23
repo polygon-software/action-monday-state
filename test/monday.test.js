@@ -92,8 +92,19 @@ describe('4: Parse Monday.com Item IDs from String', () => {
   })
 })
 
-describe('5: Integration test for whole action', () => {
-  test('5.1: Simple usecase', async () => {
+describe('5: Read item Status', () => {
+  test('5.1: Get Status of Item', async () => {
+    const status = await monday.getItemStatus('2454858795', 'status');
+    expect(status).toBe('State Test');
+  })
+  test('5.1: Get Status of Item that has no status set', async () => {
+    const status = await monday.getItemStatus('2454858997', 'status');
+    expect(status).toBe('');
+  })
+})
+
+describe('6: Integration test for whole action', () => {
+  test('6.1: Simple usecase', async () => {
     const ids = await monday.action({
       mondayToken: process.env.MONDAY_TOKEN,
       text: `fix(#${TEST_ITEM_ID}): Finished item on monday.com`,

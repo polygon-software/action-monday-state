@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/52</span>
+                <span class='fraction'>57/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">89.65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>26/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/47</span>
+                <span class='fraction'>52/52</span>
             </div>
         
             
@@ -228,7 +228,24 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,6 +339,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,6 +392,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,11 +409,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -486,6 +520,18 @@ async function columnIdByTitle(boardId, columnTitle) {
   return correctColumn.id;
 }
 &nbsp;
+async function getItemStatus(itemId, columnId) {
+  const statusQuery = await monday.api(`query {
+    items (ids: ${itemId}) {
+      column_values (ids: ${columnId}) {
+        text
+      }
+    }
+  }`);
+  const statusText = get(statusQuery, 'data.items[0].column_values[0].text');
+  return statusText || '';
+}
+&nbsp;
 /**
  * Updates the status of a given Item
  * @param {string} itemId - ID of monday.com Item
@@ -510,11 +556,12 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
  *
  * @param {string} mondayToken - AWS SDK Token, provided by monday.com
  * @param {string} text - Text from which IDs shall be extracted * @param {string} statusColumnTitle
- * @param {string} statusColumnTitle - Display Name of Status Column in Monday Board
- * @param {string} statusColumnId - ID of status column (NOT name)
- * @param {string} prefix - Text snippet that must occur right before each item ID
- * @param {string} postfix - Text snippet that must occur right after each item ID
+ * @param {?string} statusColumnTitle - Display Name of Status Column in Monday Board
+ * @param {?string} statusColumnId - ID of status column (NOT name)
+ * @param {?string} prefix - Text snippet that must occur right before each item ID
+ * @param {?string} postfix - Text snippet that must occur right after each item ID
  * @param {string} status - Display name of new status that shall be set
+ * @param {?string} statusBefore - Only change the status of the item if it currently has this status
  * @param {boolean} multiple - Whether to return all matches or just the first one * @returns {Promise&lt;string[]&gt;}
  * @returns {Promise&lt;string[]&gt;} List of monday.com item IDs of which status was updated
  */
@@ -525,6 +572,7 @@ export async function action({
   statusColumnId,
   prefix,
   postfix,
+  statusBefore,
   status,
   multiple,
 }) {
@@ -541,13 +589,15 @@ export async function action({
     const columnId = statusColumnId || await columnIdByTitle(boardId, statusColumnTitle);
     core.debug(`Found Column ID: ${columnId}`)
 &nbsp;
-    const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
-    core.debug(`Updated status to ${newStatus}`);
-&nbsp;
+    const currentStatus = !!statusBefore ? <span class="branch-0 cbranch-no" title="branch not covered" >await getItemStatus(itemId, columnId) </span>: undefined;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!statusBefore || (<span class="branch-1 cbranch-no" title="branch not covered" >statusBefore === currentStatus)</span>){
+      const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
+      core.debug(`Updated status to ${newStatus}`);
+    }
     return itemId;
   }));
 &nbsp;
-  return itemIds;
+  return itemIds.filter(Boolean);
 }
 &nbsp;
 export default {
@@ -555,6 +605,7 @@ export default {
   parseItemIds,
   boardByItem,
   columnIdByTitle,
+  getItemStatus,
   updateItemStatus,
   action,
 }
@@ -565,7 +616,7 @@ export default {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 23 2022 14:01:10 GMT+0000 (Coordinated Universal Time)
+                at Wed Mar 23 2022 15:22:12 GMT+0100 (Mitteleuropäische Normalzeit)
             </div>
         <script src="prettify.js"></script>
         <script>

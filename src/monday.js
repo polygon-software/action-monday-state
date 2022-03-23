@@ -91,6 +91,18 @@ async function columnIdByTitle(boardId, columnTitle) {
   return correctColumn.id;
 }
 
+async function getItemStatus(itemId, columnId) {
+  const statusQuery = await monday.api(`query {
+    items (ids: ${itemId}) {
+      column_values (ids: ${columnId}) {
+        text
+      }
+    }
+  }`);
+  const statusText = get(statusQuery, 'data.items[0].column_values[0].text');
+  return statusText || '';
+}
+
 /**
  * Updates the status of a given Item
  * @param {string} itemId - ID of monday.com Item
@@ -115,11 +127,12 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
  *
  * @param {string} mondayToken - AWS SDK Token, provided by monday.com
  * @param {string} text - Text from which IDs shall be extracted * @param {string} statusColumnTitle
- * @param {string} statusColumnTitle - Display Name of Status Column in Monday Board
- * @param {string} statusColumnId - ID of status column (NOT name)
- * @param {string} prefix - Text snippet that must occur right before each item ID
- * @param {string} postfix - Text snippet that must occur right after each item ID
+ * @param {?string} statusColumnTitle - Display Name of Status Column in Monday Board
+ * @param {?string} statusColumnId - ID of status column (NOT name)
+ * @param {?string} prefix - Text snippet that must occur right before each item ID
+ * @param {?string} postfix - Text snippet that must occur right after each item ID
  * @param {string} status - Display name of new status that shall be set
+ * @param {?string} statusBefore - Only change the status of the item if it currently has this status
  * @param {boolean} multiple - Whether to return all matches or just the first one * @returns {Promise<string[]>}
  * @returns {Promise<string[]>} List of monday.com item IDs of which status was updated
  */
@@ -130,6 +143,7 @@ export async function action({
   statusColumnId,
   prefix,
   postfix,
+  statusBefore,
   status,
   multiple,
 }) {
@@ -146,13 +160,15 @@ export async function action({
     const columnId = statusColumnId || await columnIdByTitle(boardId, statusColumnTitle);
     core.debug(`Found Column ID: ${columnId}`)
 
-    const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
-    core.debug(`Updated status to ${newStatus}`);
-
+    const currentStatus = !!statusBefore ? await getItemStatus(itemId, columnId) : undefined;
+    if (!statusBefore || (statusBefore === currentStatus)){
+      const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
+      core.debug(`Updated status to ${newStatus}`);
+    }
     return itemId;
   }));
 
-  return itemIds;
+  return itemIds.filter(Boolean);
 }
 
 export default {
@@ -160,6 +176,7 @@ export default {
   parseItemIds,
   boardByItem,
   columnIdByTitle,
+  getItemStatus,
   updateItemStatus,
   action,
 }

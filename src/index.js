@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import { action } from './monday';
+import monday from './monday';
 
 
 const mondayToken = core.getInput('monday-token');
@@ -8,7 +8,8 @@ const statusColumnTitle = core.getInput('status-column-title');
 const statusColumnId = core.getInput('status-column-id');
 const prefix = core.getInput('prefix');
 const postfix = core.getInput('postfix');
-const status = core.getInput('status');
+const status = core.getInput('set-status');
+const statusBefore = core.getInput('require-status');
 const multiple = core.getBooleanInput('multiple')
 
 const config = {
@@ -18,11 +19,12 @@ const config = {
   statusColumnId,
   prefix,
   postfix,
+  statusBefore,
   status,
   multiple,
 }
 
-action(config)
+monday.action(config)
   .then((itemIds) => {
     core.info(`Successfully updated status of item with ID ${JSON.stringify(itemIds)}`)
     core.setOutput("item-id", JSON.stringify(itemIds));
