@@ -23301,7 +23301,6 @@ __nccwpck_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(186);
-var core_default = /*#__PURE__*/__nccwpck_require__.n(core);
 // EXTERNAL MODULE: ./node_modules/monday-sdk-js/src/index.js
 var src = __nccwpck_require__(700);
 var src_default = /*#__PURE__*/__nccwpck_require__.n(src);
@@ -23391,13 +23390,13 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
 
 
 async function main() {
-  const mondayToken = core_default().getInput('monday-token');
-  const text = core_default().getInput('text');
-  const statusColumnTitle = core_default().getInput('status-column-title');
-  const statusColumnId = core_default().getInput('status-column-id');
-  const prefix = core_default().getInput('prefix');
-  const postfix = core_default().getInput('postfix');
-  const status = core_default().getInput('status');
+  const mondayToken = core.getInput('monday-token');
+  const text = core.getInput('text');
+  const statusColumnTitle = core.getInput('status-column-title');
+  const statusColumnId = core.getInput('status-column-id');
+  const prefix = core.getInput('prefix');
+  const postfix = core.getInput('postfix');
+  const status = core.getInput('status');
 
   src_monday.initializeSdk(mondayToken);
   const itemId = src_monday.parseItemId(text, { prefix, postfix })
@@ -23409,10 +23408,12 @@ async function main() {
 
 main()
   .then((itemId) => {
-    core_default().setOutput("item-id", itemId);
+    console.log(`Successfully updated status of item with ID ${itemId}`)
+    core.setOutput("item-id", itemId);
   })
   .catch((error) => {
-    core_default().setFailed(error.message);
+    console.error(error);
+    core.setFailed(error.message);
   })
 
 

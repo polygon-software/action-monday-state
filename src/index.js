@@ -11,20 +11,30 @@ async function main() {
   const status = core.getInput('status');
 
   monday.initializeSdk(mondayToken);
+  core.debug('Initialized monday SDK')
+
   const itemId = monday.parseItemId(text, { prefix, postfix })
+  core.debug(`Parsed text, found Item with ID ${itemId}`)
+
   const boardId = await monday.boardByItem(itemId);
+  core.debug(`Found board corresponding to Item. Board-iD is: ${boardId}`)
+
   const columnId = statusColumnId || await monday.columnIdByTitle(boardId, statusColumnTitle);
-  await monday.updateItemStatus(itemId, boardId, columnId, status);
+  core.debug(`Found Column ID: ${columnId}`)
+
+  const newStatus = await monday.updateItemStatus(itemId, boardId, columnId, status);
+  core.debug(`Updated status to ${newStatus}`);
+
   return itemId;
 }
 
 main()
   .then((itemId) => {
-    console.log(`Successfully updated status of item with ID ${itemId}`)
+    core.info(`Successfully updated status of item with ID ${itemId}`)
     core.setOutput("item-id", itemId);
   })
   .catch((error) => {
-    console.error(error);
+    core.error(error);
     core.setFailed(error.message);
   })
 
