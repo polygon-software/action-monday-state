@@ -48,35 +48,58 @@ describe('3. Change Status column', () => {
 describe('4: Parse Monday.com Item IDs from String', () => {
   test('4.1: Parse from simple strings', () => {
     const str = `${TEST_ITEM_ID}`;
-    expect(monday.parseItemId(str)).toBe(TEST_ITEM_ID);
+    expect(monday.parseItemIds(str)).toEqual([TEST_ITEM_ID]);
   })
   test('4.2: Fail if string contains no ID', () => {
     const str = `There is no ID here`;
-    expect(() => monday.parseItemId(str)).toThrow();
+    expect(() => monday.parseItemIds(str)).toThrow();
   })
   test('4.3: Parse with prefix and postfix', () => {
     const str = `#(${TEST_ITEM_ID})`;
     const config = { prefix: '#(', postfix: ')' }
-    expect(monday.parseItemId(str, config)).toBe(TEST_ITEM_ID);
+    expect(monday.parseItemIds(str, config)).toEqual([TEST_ITEM_ID]);
   })
   test('4.4: Parse Semantic PR Title', () => {
     const str = `fix(#${TEST_ITEM_ID}): Finished item on monday.com`;
-    expect(monday.parseItemId(str)).toBe(TEST_ITEM_ID);
+    expect(monday.parseItemIds(str)).toEqual([TEST_ITEM_ID]);
   })
   test('4.5: Parse Semantic PR Title with specified prefix/postfix', () => {
     const str = `fix(#${TEST_ITEM_ID}): Finished item on monday.com`;
     const config = { prefix: '(#', postfix: ')' }
-    expect(monday.parseItemId(str, config)).toBe(TEST_ITEM_ID);
+    expect(monday.parseItemIds(str, config)).toEqual([TEST_ITEM_ID]);
   })
   test('4.6: Parse commit message', () => {
     const str = `Pushed fix for monday.com item nr.${TEST_ITEM_ID} into dev branch`;
-    expect(monday.parseItemId(str)).toBe(TEST_ITEM_ID);
+    expect(monday.parseItemIds(str)).toEqual([TEST_ITEM_ID]);
   })
   test('4.7: Fail if ID is too long / too short', () => {
     const short = `123456789`;
-    expect(() => monday.parseItemId(short)).toThrow();
+    expect(() => monday.parseItemIds(short)).toThrow();
 
     const long = `12345678910`;
-    expect(() => monday.parseItemId(long)).toThrow();
+    expect(() => monday.parseItemIds(long)).toThrow();
+  })
+  test('4.8: Multiple IDs can be extracted', async () => {
+    const TEST_ITEM_ID_2 = `2453434908`
+    const multiple = true;
+    const str = `${TEST_ITEM_ID} ${TEST_ITEM_ID_2}`;
+    expect(monday.parseItemIds(str, { multiple })).toEqual([TEST_ITEM_ID, TEST_ITEM_ID_2]);
+  })
+  test('4.9: Multiple IDs are only extracted once', async () => {
+    const str = `${TEST_ITEM_ID} ${TEST_ITEM_ID}`;
+    const multiple = true;
+    expect(monday.parseItemIds(str, { multiple })).toEqual([TEST_ITEM_ID]);
+  })
+})
+
+describe('5: Integration test for whole action', () => {
+  test('5.1: Simple usecase', async () => {
+    const ids = await monday.action({
+      mondayToken: process.env.MONDAY_TOKEN,
+      text: `fix(#${TEST_ITEM_ID}): Finished item on monday.com`,
+      statusColumnTitle: TEST_COLUMN_TITLE,
+      status: TEST_STATE_BEFORE,
+    })
+    expect(ids).toEqual([TEST_ITEM_ID])
   })
 })

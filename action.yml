@@ -26,6 +26,10 @@ inputs:
   status:
     description: 'Item-Status text that shall be set'
     required: true
+  multiple:
+    description: 'If multiple Item IDs are found, set status of all of them. Default: Only first found Item ID is used.'
+    required: false
+    default: 'false'
 outputs:
   item-id:
     description: "The monday.com item-ID that for which the status was set"
