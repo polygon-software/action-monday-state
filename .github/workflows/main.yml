@@ -72,7 +72,7 @@ jobs:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: "fix(#2453434908): Finished item on monday.com"
           status-column-title: 'Status Column!'
-          status: 'State Test'
+          set-status: 'State Test'
 
   sonarcloud:
     name: SonarCloud
