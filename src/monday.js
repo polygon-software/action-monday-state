@@ -123,7 +123,7 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
  * @param {boolean} multiple - Whether to return all matches or just the first one * @returns {Promise<string[]>}
  * @returns {Promise<string[]>} List of monday.com item IDs of which status was updated
  */
-async function action({
+export async function action({
   mondayToken,
   text,
   statusColumnTitle,
