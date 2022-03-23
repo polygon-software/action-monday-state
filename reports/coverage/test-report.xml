@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="/home/runner/work/action-monday-state/action-monday-state/test/monday.test.js">
-        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="417"/>
-        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="536"/>
-        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="195"/>
-        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="149"/>
-        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="753"/>
+        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="452"/>
+        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="106"/>
+        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="116"/>
+        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="126"/>
+        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="775"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.1: Parse from simple strings" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.2: Fail if string contains no ID" duration="1"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.3: Parse with prefix and postfix" duration="0"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.3: Parse with prefix and postfix" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.4: Parse Semantic PR Title" duration="1"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.5: Parse Semantic PR Title with specified prefix/postfix" duration="0"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.5: Parse Semantic PR Title with specified prefix/postfix" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.6: Parse commit message" duration="0"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="2"/>
     </file>
 </testExecutions>
