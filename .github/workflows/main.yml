@@ -67,7 +67,7 @@ jobs:
           push_options: '--force'
 
       - name: Use own action to set status of item
-        uses: polygon-software/action-monday-state@master
+        uses: polygon-software/action-monday-state@main
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: "fix(#2453434908): Finished item on monday.com"
