@@ -9,7 +9,7 @@ inputs:
     description: 'API Access token for monday.com'
     required: true
   text:
-    description: 'Text that includes the Item ID. Example for PR Title: ${{ github.event.pull_request.title }}'
+    description: 'Text that includes the Item ID. Example for PR Title: github.event.pull_request.title'
     required: true
   status-column-title:
     description: 'Title of column of which status shall be updated'
