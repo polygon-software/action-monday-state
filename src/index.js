@@ -1,4 +1,4 @@
-import core from '@actions/core';
+import * as core from '@actions/core';
 import monday from './monday';
 
 async function main() {
@@ -20,9 +20,11 @@ async function main() {
 
 main()
   .then((itemId) => {
+    console.log(`Successfully updated status of item with ID ${itemId}`)
     core.setOutput("item-id", itemId);
   })
   .catch((error) => {
+    console.error(error);
     core.setFailed(error.message);
   })
 
