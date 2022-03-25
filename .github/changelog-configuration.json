@@ -13,29 +13,34 @@
       "labels": ["test"]
     },
     {
-      "title": "## 💬 Other",
-      "labels": ["other"]
+      "title": "## \uD83D\uDCDC Docs",
+      "labels": ["docs"]
     }
   ],
   "label_extractor": [
     {
       "pattern": "^feature",
-      "method": "match",
+      "method": "replace",
       "on_property": "title"
     },
     {
       "pattern": "^fix",
-      "method": "match",
+      "method": "replace",
       "on_property": "title"
     },
     {
       "pattern": "^test",
-      "method": "match",
+      "method": "replace",
+      "on_property": "title"
+    },
+    {
+      "pattern": "^docs",
+      "method": "replace",
       "on_property": "title"
     }
   ],
   "sort": "DESC",
-  "template": "${{CHANGELOG}}\n\n## 🪛 Misc Fixes:\n\n${{UNCATEGORIZED}}\n",
-  "pr_template": "- ${{TITLE}} \n  - Author: ${{AUTHOR}}\n  - Reviewers: ${{REVIEWERS}}",
+  "template": "${{CHANGELOG}}\n\n## \uD83D\uDCDC Uncategorized:\n\n${{UNCATEGORIZED}}\n",
+  "pr_template": "- ${{TITLE}} \n  - Author: ${{AUTHOR}}\n  - Finished: ${{MERGED_AT}}\n  - Reviewers: ${{REVIEWERS}}",
   "empty_template": "- No Changes detected"
 }

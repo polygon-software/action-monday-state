@@ -30,6 +30,7 @@ jobs:
         continue-on-error: true
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
+          monday-organization: polygonsoftware
           text: ${{ steps.changelog.outputs.changelog }}
           prefix: '#'
           status-column-id: 'status'
