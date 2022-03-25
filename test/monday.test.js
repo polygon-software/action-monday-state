@@ -98,7 +98,7 @@ describe('5: Read item Status', () => {
     expect(status).toBe('State Test');
   })
   test('5.1: Get Status of Item that has no status set', async () => {
-    const status = await monday.getItemStatus('2454858997', 'status');
+    const status = await monday.getItemStatus('2465258610', 'status');
     expect(status).toBe('');
   })
 })

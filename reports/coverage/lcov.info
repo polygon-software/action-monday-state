@@ -1,5 +1,5 @@
 TN:
-SF:src/monday.js
+SF:src\monday.js
 FN:13,initializeSdk
 FN:23,escapeStringRegexp
 FN:38,parseItemIds
