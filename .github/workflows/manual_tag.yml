@@ -1,0 +1,30 @@
+name: Example - Manually add a tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+      version:
+        description: 'Version for release draft. Example: "1.2203.1" -> v1.2203.1'
+        required: true
+      postfix:
+        description: 'Optional postfix. Example: "-beta-1" -> v1.2203.1-beta-1'
+        required: false
+
+jobs:
+  printInputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.TAG_TOKEN }}
+
+      - name: Create and push new Tag
+        run: |
+          echo "Log level: v${{ github.event.inputs.version }}${{ github.event.inputs.postfix }}"
+          git tag v${{ github.event.inputs.version }}${{ github.event.inputs.postfix }}
+          git push origin v${{ github.event.inputs.version }}${{ github.event.inputs.postfix }}
