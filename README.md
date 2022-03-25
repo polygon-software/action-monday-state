@@ -59,6 +59,7 @@ jobs:
 | postfix             | false    | )                                    | String that must occur right after the item ID, like ")" for fix(#1234567890)                                                                                               |
 | multiple            | false    | true                                 | String that must occur right after the item ID, like ")" for fix(#1234567890)                                                                                               |
 | monday-organization | false    | polygonsoftware                      | Monday.com organization name - used to generate the directlinks in the action output message                                                                                |
+| do-not-fail         | false    | false                                | Per default, the action fails if on monday.com Item IDs could be found. Setting this boolean to 'true' prevents this failure and always                                     |
 
 ## Outputs
 
