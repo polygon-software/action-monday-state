@@ -41,6 +41,6 @@
   ],
   "sort": "DESC",
   "template": "${{CHANGELOG}}\n\n## \uD83D\uDCDC Uncategorized:\n\n${{UNCATEGORIZED}}\n",
-  "pr_template": "- ${{TITLE}} \n  - Author: ${{AUTHOR}}\n  - Finished: ${{MERGED_AT}}\n  - Reviewers: ${{REVIEWERS}}",
+  "pr_template": "- ${{TITLE}} \n  - Author: ${{AUTHOR}}\n  - Reviewers: ${{REVIEWERS}}",
   "empty_template": "- No Changes detected"
 }

@@ -36,12 +36,24 @@ jobs:
           status-column-id: 'status'
           set-status: 'In TEST'
 
+      - name: Archive Release
+        uses: polygon-software/action-zip@master
+        with:
+          files: dist
+          dest: release.zip
+
+      - name: Upload release.zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-zip
+          path: release.zip
+
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: polygon-software/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           draft: true
-          files: dist/index.js
+          files: release.zip
           body: |
             ${{ steps.changelog.outputs.changelog }}
             ---
