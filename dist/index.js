@@ -23468,6 +23468,7 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
  * @param {?string} statusBefore - Only change the status of the item if it currently has this status
  * @param {boolean} multiple - Whether to return all matches or just the first one
  * @param {string} mondayOrganization - Monday.com organization name - used to generate the directlinks in the action output message
+ * @param {boolean} doNotFail - Do not fail when no monday.com Item-ID is found
  * @returns {Promise<{message: string, itemIds: string[]}>} List of monday.com item IDs of which status was updated and status message
  */
 async function action({
@@ -23481,11 +23482,18 @@ async function action({
   status,
   multiple,
   mondayOrganization,
+  doNotFail,
 }) {
   initializeSdk(mondayToken);
   core.debug('Initialized monday SDK')
 
-  const itemIds = parseItemIds(text, { prefix, postfix, multiple })
+  let itemIds;
+  try {
+    itemIds = parseItemIds(text, { prefix, postfix, multiple })
+  } catch(e) {
+    if (doNotFail) { return { itemIds: [], message: e.message }; }
+    throw e;
+  }
   core.debug(`Parsed text, found Item with IDs ${JSON.stringify(itemIds)}`)
 
   const messagePrefix = '![monday.com](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Monday_logo.svg/320px-Monday_logo.svg.png)\nThe status of the following items has been referenced on monday.com:\n';
@@ -23545,6 +23553,7 @@ const src_status = core.getInput('set-status');
 const statusBefore = core.getInput('require-status');
 const multiple = core.getBooleanInput('multiple')
 const mondayOrganization = core.getInput('monday-organization');
+const doNotFail = core.getBooleanInput('do-not-fail');
 
 const config = {
   mondayToken,
@@ -23557,6 +23566,7 @@ const config = {
   status: src_status,
   multiple,
   mondayOrganization,
+  doNotFail,
 }
 
 src_monday.action(config)
