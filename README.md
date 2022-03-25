@@ -110,4 +110,4 @@ jobs:
 
 ## Credits
 
-[This project was developed in Zurich, Switzerland by PolygonSoftware](https://polygon-software.ch/)
+[Software Development from Zurich, Switzerland by PolygonSoftware](https://polygon-software.ch/)
