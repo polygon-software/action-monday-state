@@ -11,7 +11,7 @@ jobs:
       # Set status on-prerelease for items that appear in a commit message into pre-release
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
-        if: ${{ github.event.prerelease == 'true' }}
+        if: ${{ github.event.release.prerelease == 'true' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.pull_request.title }} # WIP

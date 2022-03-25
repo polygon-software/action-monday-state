@@ -15,7 +15,7 @@ jobs:
         if: ${{ github.base.head != 'stage' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.event.title }}
+          text: ${{ github.event.pull_request.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In PR'

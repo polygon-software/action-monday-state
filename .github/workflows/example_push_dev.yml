@@ -13,7 +13,7 @@ jobs:
         uses: polygon-software/action-monday-state@main
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ join(github.commits.*.message, ', ') }}
+          text: ${{ join(github.event.commits.*.message, ', ') }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In DEV'

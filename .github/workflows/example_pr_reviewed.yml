@@ -15,7 +15,7 @@ jobs:
         if: ${{ github.review.state == 'commented' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.event.title }}
+          text: ${{ github.event.pull_request.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'
@@ -26,7 +26,7 @@ jobs:
         if: ${{ github.review.state == 'approved' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.event.title }}
+          text: ${{ github.event.pull_request.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'
@@ -37,7 +37,7 @@ jobs:
         if: ${{ github.review.state == 'rejected' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.event.title }}
+          text: ${{ github.event.pull_request.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'
