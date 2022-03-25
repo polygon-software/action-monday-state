@@ -23,9 +23,6 @@ jobs:
         with:
           configuration: ".github/changelog-configuration.json"
 
-      - name: Show output
-        run: echo ${{ steps.changelog.outputs.changelog }}
-
       # Set status on-prerelease for items that appear in a commit message into pre-release
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
