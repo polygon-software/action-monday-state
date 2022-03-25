@@ -18,6 +18,7 @@ jobs:
         if: ${{ github.base.head != 'stage' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
+          monday-organization: polygonsoftware
           text: ${{ github.event.pull_request.title }}
           prefix: '#'
           status-column-id: 'status'
