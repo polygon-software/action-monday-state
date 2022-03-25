@@ -1,4 +1,4 @@
-name: Example - Pre-Release
+name: Example - Release
 
 on:
   release:

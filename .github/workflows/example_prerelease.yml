@@ -1,4 +1,4 @@
-name: Example - Release
+name: Example - Pre-Release
 
 on:
   push:
