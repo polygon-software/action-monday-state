@@ -8,9 +8,6 @@ jobs:
   set-status:
     runs-on: ubuntu-latest
     steps:
-      - name: Print output
-        run: echo github.event.pull_request.title ${{ github.event.pull_request.title }}
-
       # Set status to 'In PR' if base branch is not 'stage' branch
       - name: Use own action to set status of item
         id: monday-state

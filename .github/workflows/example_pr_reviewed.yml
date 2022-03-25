@@ -8,9 +8,6 @@ jobs:
   set-status:
     runs-on: ubuntu-latest
     steps:
-      - name: Print output
-        run: echo ${{ github.event.review.state }} - ${{ github.event.pull_request.title }}
-
       # If PR was 'COMMENTED'
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
@@ -25,7 +22,7 @@ jobs:
       # If PR was 'APPROVED'
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
-        if: ${{ github.review.state == 'approved' }}
+        if: ${{ github.event.review.state == 'approved' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
@@ -36,7 +33,7 @@ jobs:
       # If PR was 'REJECTED'
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
-        if: ${{ github.review.state == 'rejected' }}
+        if: ${{ github.event.review.state == 'rejected' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
