@@ -2,7 +2,7 @@ name: Example - Push Dev
 
 on:
   push:
-    branches: [dev]
+    branches: [main, master, dev]
 
 jobs:
   set-status:
