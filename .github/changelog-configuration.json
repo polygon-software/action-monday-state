@@ -20,22 +20,22 @@
   "label_extractor": [
     {
       "pattern": "^feature",
-      "method": "replace",
+      "method": "match",
       "on_property": "title"
     },
     {
       "pattern": "^fix",
-      "method": "replace",
+      "method": "match",
       "on_property": "title"
     },
     {
       "pattern": "^test",
-      "method": "replace",
+      "method": "match",
       "on_property": "title"
     },
     {
       "pattern": "^docs",
-      "method": "replace",
+      "method": "match",
       "on_property": "title"
     }
   ],
