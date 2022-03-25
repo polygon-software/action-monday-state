@@ -13,7 +13,7 @@ jobs:
         if: ${{ github.event.release.draft != 'true' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.event.release.description }}
+          text: ${{ github.event.release.body }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In LIVE'
