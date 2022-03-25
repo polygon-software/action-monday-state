@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Set status to 'In PR' if base branch is not 'stage' branch
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         id: monday-state
         uses: polygon-software/action-monday-state@main
         if: ${{ github.base.head != 'stage' }}
@@ -17,7 +17,7 @@ jobs:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           monday-organization: polygonsoftware
           text: ${{ github.event.pull_request.title }}
-          continue-on-error: true
+          allow-no-item-id: true
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In PR'

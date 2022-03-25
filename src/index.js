@@ -12,7 +12,7 @@ const status = core.getInput('set-status');
 const statusBefore = core.getInput('require-status');
 const multiple = core.getBooleanInput('multiple')
 const mondayOrganization = core.getInput('monday-organization');
-const doNotFail = core.getBooleanInput('do-not-fail');
+const doNotFail = core.getBooleanInput('allow-no-item-id');
 
 const config = {
   mondayToken,

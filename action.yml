@@ -36,7 +36,7 @@ inputs:
   monday-organization:
     description: 'Monday.com organization name - used to generate the directlinks in the action output message'
     required: false
-  do-not-fail:
+  allow-no-item-id:
     description: 'Do not fail when no monday.com Item-ID is found'
     required: false
     default: 'false'

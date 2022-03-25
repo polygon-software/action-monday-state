@@ -5,10 +5,11 @@ on:
     types: [published]
 
 jobs:
-  set-status:
+  release:
+    name: Release new Live-Version
     runs-on: ubuntu-latest
     steps:
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.release.draft != 'true' }}
         with:

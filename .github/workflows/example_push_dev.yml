@@ -6,15 +6,16 @@ on:
 
 jobs:
   set-status:
+    name: Set monday.com Item Status
     runs-on: ubuntu-latest
     steps:
       # Set status on-dev for items that appear in a commit message into DEV
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ join(github.event.commits.*.message, ', ') }}
-          continue-on-error: true
+          allow-no-item-id: true
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In DEV'

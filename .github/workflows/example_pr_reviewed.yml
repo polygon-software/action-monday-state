@@ -6,14 +6,15 @@ on:
 
 jobs:
   set-status:
+    name: Set monday.com Item Status
     runs-on: ubuntu-latest
     steps:
       # If PR was 'COMMENTED'
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'commented' }}
-        continue-on-error: true
         with:
+          allow-no-item-id: true
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
           prefix: '#'
@@ -21,11 +22,11 @@ jobs:
           set-status: 'Commented'
 
       # If PR was 'APPROVED'
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'approved' }}
-        continue-on-error: true
         with:
+          allow-no-item-id: true
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
           prefix: '#'
@@ -33,11 +34,11 @@ jobs:
           set-status: 'Commented'
 
       # If PR was 'REJECTED'
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'rejected' }}
-        continue-on-error: true
         with:
+          allow-no-item-id: true
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
           prefix: '#'

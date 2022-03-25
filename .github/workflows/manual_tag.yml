@@ -15,7 +15,8 @@ on:
         required: false
 
 jobs:
-  printInputs:
+  add-tag:
+    name: Add tag to specified branch
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

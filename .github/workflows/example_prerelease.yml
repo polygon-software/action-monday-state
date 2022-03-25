@@ -1,4 +1,4 @@
-name: Example - Pre-Release
+name: Example - Release Draft
 
 on:
   push:
@@ -6,9 +6,11 @@ on:
       - "v*"
 
 jobs:
-  release:
+  release-draft:
+    name: Create Release Draft
     if: startsWith(github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v3
@@ -24,11 +26,11 @@ jobs:
           configuration: ".github/changelog-configuration.json"
 
       # Set status on-prerelease for items that appear in a commit message into pre-release
-      - name: Use own action to set status of item
+      - name: Update state of monday.com items
         uses: polygon-software/action-monday-state@main
         id: monday-state
-        continue-on-error: true
         with:
+          allow-no-item-id: true
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           monday-organization: polygonsoftware
           text: ${{ steps.changelog.outputs.changelog }}
