@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="/home/runner/work/action-monday-state/action-monday-state/test/monday.test.js">
-        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="223"/>
-        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="148"/>
-        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="139"/>
-        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="92"/>
-        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="634"/>
+        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="201"/>
+        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="136"/>
+        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="270"/>
+        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="237"/>
+        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="800"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.1: Parse from simple strings" duration="2"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.2: Fail if string contains no ID" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.3: Parse with prefix and postfix" duration="0"/>
@@ -15,9 +15,9 @@
         <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.8: Multiple IDs can be extracted" duration="0"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.9: Multiple IDs are only extracted once" duration="1"/>
-        <testCase name="5: Read item Status 5.1: Get Status of Item" duration="300"/>
-        <testCase name="5: Read item Status 5.1: Get Status of Item that has no status set" duration="165"/>
-        <testCase name="6: Get Item Names 6.1: Get Item Name" duration="134"/>
-        <testCase name="7: Integration test for whole action 7.1: Simple usecase" duration="696"/>
+        <testCase name="5: Read item Status 5.1: Get Status of Item" duration="256"/>
+        <testCase name="5: Read item Status 5.1: Get Status of Item that has no status set" duration="209"/>
+        <testCase name="6: Get Item Names 6.1: Get Item Name" duration="104"/>
+        <testCase name="7: Integration test for whole action 7.1: Simple usecase" duration="952"/>
     </file>
 </testExecutions>
