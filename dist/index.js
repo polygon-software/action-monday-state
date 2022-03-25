@@ -23488,7 +23488,7 @@ async function action({
   const itemIds = parseItemIds(text, { prefix, postfix, multiple })
   core.debug(`Parsed text, found Item with IDs ${JSON.stringify(itemIds)}`)
 
-  const messagePrefix = 'The status of the following items has been referenced on monday.com:\n';
+  const messagePrefix = '![monday.com](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Monday_logo.svg/320px-Monday_logo.svg.png)\nThe status of the following items has been referenced on monday.com:\n';
   const itemMessages = [];
 
   await Promise.all(itemIds.map(async (itemId) => {
