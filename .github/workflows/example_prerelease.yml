@@ -20,6 +20,11 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v2.9.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          configuration: ".github/changelog-configuration.json"
+
+      - name: Show output
+        run: echo ${{ steps.changelog.outputs.changelog }}
 
       # Set status on-prerelease for items that appear in a commit message into pre-release
       - name: Use own action to set status of item
@@ -37,7 +42,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          prerelease: true
+          draft: true
           files: dist/index.js
           body: |
             ${{ steps.changelog.outputs.changelog }}

@@ -1,0 +1,41 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Features",
+      "labels": ["feature"]
+    },
+    {
+      "title": "## 🐛 Fixes",
+      "labels": ["fix"]
+    },
+    {
+      "title": "## 🧪 Tests",
+      "labels": ["test"]
+    },
+    {
+      "title": "## 💬 Other",
+      "labels": ["other"]
+    },
+  ],
+  "label_extractor": [
+    {
+      "pattern": "^feature",
+      "method": "match",
+      "on_property": "title"
+    },
+    {
+      "pattern": "^fix",
+      "method": "match",
+      "on_property": "title"
+    },
+    {
+      "pattern": "^test",
+      "method": "match",
+      "on_property": "title"
+    }
+  ],
+  "sort": "DESC",
+  "template": "${{CHANGELOG}}\n\n## 🪛 Misc Fixes:\n\n${{UNCATEGORIZED}}\n",
+  "pr_template": "- ${{TITLE}} \n  - Author: ${{AUTHOR}}\n  - Reviewers: ${{REVIEWERS}}",
+  "empty_template": "- No Changes detected"
+}
