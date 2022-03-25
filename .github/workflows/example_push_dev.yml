@@ -14,6 +14,7 @@ jobs:
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ join(github.event.commits.*.message, ', ') }}
+          continue-on-error: true
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In DEV'

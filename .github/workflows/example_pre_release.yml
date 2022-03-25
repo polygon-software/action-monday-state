@@ -1,4 +1,4 @@
-name: Example - Pre-Release
+name: Example - (Pre)-Release
 
 on:
   release:
@@ -14,7 +14,17 @@ jobs:
         if: ${{ github.event.release.prerelease == 'true' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.pull_request.title }} # WIP
+          text: ${{ github.event.release.description }}
           prefix: '#'
           status-column-id: 'status'
-          set-status: 'In PR'
+          set-status: 'In TEST'
+
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.event.release.prerelease != 'true' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.event.release.description }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'In LIVE'

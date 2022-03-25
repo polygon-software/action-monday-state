@@ -17,6 +17,7 @@ jobs:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           monday-organization: polygonsoftware
           text: ${{ github.event.pull_request.title }}
+          continue-on-error: true
           prefix: '#'
           status-column-id: 'status'
           set-status: 'In PR'

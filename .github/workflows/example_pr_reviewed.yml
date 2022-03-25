@@ -12,6 +12,7 @@ jobs:
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'commented' }}
+        continue-on-error: true
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
@@ -23,6 +24,7 @@ jobs:
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'approved' }}
+        continue-on-error: true
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
@@ -34,6 +36,7 @@ jobs:
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
         if: ${{ github.event.review.state == 'rejected' }}
+        continue-on-error: true
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
