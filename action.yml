@@ -33,9 +33,14 @@ inputs:
     description: 'If multiple Item IDs are found, set status of all of them. Default: Only first found Item ID is used.'
     required: false
     default: 'false'
+  monday-organization:
+    description: 'Monday.com organization name - used to generate the directlinks in the action output message'
+    required: false
 outputs:
-  item-id:
+  item-ids:
     description: "The monday.com item-ID that for which the status was set"
+  message:
+    description: "A markdown formatted text that informs about the mentioned items"
 runs:
   using: "node12"
   main: "dist/index.js"

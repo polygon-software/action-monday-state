@@ -23403,6 +23403,12 @@ async function columnIdByTitle(boardId, columnTitle) {
   return correctColumn.id;
 }
 
+/**
+ * Returns the status text of an item with a given column ID
+ * @param {string} itemId - ID of monday.com Item
+ * @param {string} columnId - ID of status column (NOT name)
+ * @returns {Promise<string>}
+ */
 async function getItemStatus(itemId, columnId) {
   const statusQuery = await monday.api(`query {
     items (ids: ${itemId}) {
@@ -23413,6 +23419,21 @@ async function getItemStatus(itemId, columnId) {
   }`);
   const statusText = (0,lodash.get)(statusQuery, 'data.items[0].column_values[0].text');
   return statusText || '';
+}
+
+/**
+ * Returns the name of a given item ID
+ * @param {string} itemId - ID of monday.com Item
+ * @returns {Promise<string>} - Name of monday.com item
+ */
+async function getItemName(itemId) {
+  const nameQuery = await monday.api(`query {
+    items (ids: ${itemId}) {
+      name
+    }
+  }`);
+  const name = (0,lodash.get)(nameQuery, 'data.items[0].name');
+  return name || '';
 }
 
 /**
@@ -23445,8 +23466,9 @@ async function updateItemStatus(itemId, boardId, columnId, columnStatus) {
  * @param {?string} postfix - Text snippet that must occur right after each item ID
  * @param {string} status - Display name of new status that shall be set
  * @param {?string} statusBefore - Only change the status of the item if it currently has this status
- * @param {boolean} multiple - Whether to return all matches or just the first one * @returns {Promise<string[]>}
- * @returns {Promise<string[]>} List of monday.com item IDs of which status was updated
+ * @param {boolean} multiple - Whether to return all matches or just the first one
+ * @param {string} mondayOrganization - Monday.com organization name - used to generate the directlinks in the action output message
+ * @returns {Promise<{message: string, itemIds: string[]}>} List of monday.com item IDs of which status was updated and status message
  */
 async function action({
   mondayToken,
@@ -23458,12 +23480,16 @@ async function action({
   statusBefore,
   status,
   multiple,
+  mondayOrganization,
 }) {
   initializeSdk(mondayToken);
   core.debug('Initialized monday SDK')
 
   const itemIds = parseItemIds(text, { prefix, postfix, multiple })
   core.debug(`Parsed text, found Item with IDs ${JSON.stringify(itemIds)}`)
+
+  const messagePrefix = 'The following items have been referenced on monday.com:\n';
+  const itemMessages = [];
 
   await Promise.all(itemIds.map(async (itemId) => {
     const boardId = await boardByItem(itemId);
@@ -23473,14 +23499,24 @@ async function action({
     core.debug(`Found Column ID: ${columnId}`)
 
     const currentStatus = !!statusBefore ? await getItemStatus(itemId, columnId) : undefined;
-    if (!statusBefore || (statusBefore === currentStatus)){
-      const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
-      core.debug(`Updated status to ${newStatus}`);
-    }
-    return itemId;
+
+    if (statusBefore && (statusBefore !== currentStatus)){ return; }
+
+    const newStatus = await updateItemStatus(itemId, boardId, columnId, status);
+    core.debug(`Updated status to ${newStatus}`);
+
+    const itemName = await getItemName(itemId);
+
+    const link = mondayOrganization ? `[↪](https://${mondayOrganization}.monday.com/boards/${boardId}/pulses/${itemId})` : '';
+    const itemMessage = `- \[${newStatus}\] ${itemName} ${link}\n`;
+    itemMessages.push(itemMessage);
   }));
 
-  return itemIds.filter(Boolean);
+  const message = `${messagePrefix}\n${itemMessages.join(' ')}`
+  return {
+    itemIds: itemIds.filter(Boolean),
+    message,
+  };
 }
 
 /* harmony default export */ const src_monday = ({
@@ -23489,6 +23525,7 @@ async function action({
   boardByItem,
   columnIdByTitle,
   getItemStatus,
+  getItemName,
   updateItemStatus,
   action,
 });
@@ -23507,6 +23544,7 @@ const postfix = core.getInput('postfix');
 const src_status = core.getInput('set-status');
 const statusBefore = core.getInput('require-status');
 const multiple = core.getBooleanInput('multiple')
+const mondayOrganization = core.getInput('monday-organization');
 
 const config = {
   mondayToken,
@@ -23518,12 +23556,14 @@ const config = {
   statusBefore,
   status: src_status,
   multiple,
+  mondayOrganization,
 }
 
 src_monday.action(config)
-  .then((itemIds) => {
+  .then(({ itemIds, message }) => {
     core.info(`Successfully updated status of item with ID ${JSON.stringify(itemIds)}`)
-    core.setOutput("item-id", JSON.stringify(itemIds));
+    core.setOutput("item-ids", JSON.stringify(itemIds));
+    core.setOutput('message', message);
   })
   .catch((error) => {
     core.error(error);

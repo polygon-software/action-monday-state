@@ -1,0 +1,28 @@
+name: Example - Set Status on PR from any -> dev
+
+on:
+  pull_request:
+    branches: [dev]
+
+jobs:
+  set-status:
+    runs-on: ubuntu-latest
+    steps:
+      # Set status to 'In PR' if base branch is not 'stage' branch
+      - name: Use own action to set status of item
+        id: monday-state
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.base.head != 'stage' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.pull_request.title }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'In PR'
+
+      - name: Comment PR
+        uses: polygon-software/actions-comment-pull-request@v1
+        if: ${{ github.base.head != 'stage' }}
+        with:
+          message: ${{ steps.monday-state.outputs.message }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

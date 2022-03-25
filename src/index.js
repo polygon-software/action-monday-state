@@ -11,6 +11,7 @@ const postfix = core.getInput('postfix');
 const status = core.getInput('set-status');
 const statusBefore = core.getInput('require-status');
 const multiple = core.getBooleanInput('multiple')
+const mondayOrganization = core.getInput('monday-organization');
 
 const config = {
   mondayToken,
@@ -22,12 +23,14 @@ const config = {
   statusBefore,
   status,
   multiple,
+  mondayOrganization,
 }
 
 monday.action(config)
-  .then((itemIds) => {
+  .then(({ itemIds, message }) => {
     core.info(`Successfully updated status of item with ID ${JSON.stringify(itemIds)}`)
-    core.setOutput("item-id", JSON.stringify(itemIds));
+    core.setOutput("item-ids", JSON.stringify(itemIds));
+    core.setOutput('message', message);
   })
   .catch((error) => {
     core.error(error);

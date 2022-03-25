@@ -1,0 +1,20 @@
+name: Example - Set Status on PR from any -> dev
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  set-status:
+    runs-on: ubuntu-latest
+    steps:
+      # Set status on-prerelease for items that appear in a commit message into pre-release
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.release.prerelease == 'true' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.pull_request.title }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'In PR'

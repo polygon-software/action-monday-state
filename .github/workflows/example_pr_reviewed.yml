@@ -1,0 +1,43 @@
+name: Example - Set Status on PR from any -> dev
+
+on:
+  pull_request_review:
+    branches: [dev]
+
+jobs:
+  set-status:
+    runs-on: ubuntu-latest
+    steps:
+
+      # If PR was 'COMMENTED'
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.review.state == 'commented' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.pull_request.title }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'Commented'
+
+      # If PR was 'APPROVED'
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.review.state == 'approved' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.pull_request.title }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'Commented'
+
+      # If PR was 'REJECTED'
+      - name: Use own action to set status of item
+        uses: polygon-software/action-monday-state@main
+        if: ${{ github.review.state == 'rejected' }}
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.pull_request.title }}
+          prefix: '#'
+          status-column-id: 'status'
+          set-status: 'Commented'

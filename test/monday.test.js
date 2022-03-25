@@ -103,14 +103,22 @@ describe('5: Read item Status', () => {
   })
 })
 
-describe('6: Integration test for whole action', () => {
-  test('6.1: Simple usecase', async () => {
-    const ids = await monday.action({
+describe('6: Get Item Names', () => {
+  test('6.1: Get Item Name', async () => {
+    const status = await monday.getItemName('2453434956');
+    expect(status).toBe('Github Action Monday State: JEST');
+  })
+})
+
+describe('7: Integration test for whole action', () => {
+  test('7.1: Simple usecase', async () => {
+    const { itemIds, message } = await monday.action({
       mondayToken: process.env.MONDAY_TOKEN,
       text: `fix(#${TEST_ITEM_ID}): Finished item on monday.com`,
       statusColumnTitle: TEST_COLUMN_TITLE,
       status: TEST_STATE_BEFORE,
+      mondayOrganization: 'polygonsoftware'
     })
-    expect(ids).toEqual([TEST_ITEM_ID])
+    expect(itemIds).toEqual([TEST_ITEM_ID]);
   })
 })

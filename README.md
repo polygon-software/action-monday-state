@@ -58,6 +58,41 @@ jobs:
 | prefix              | false    | #(                                   | String that must occur right before the item ID, like "#(" for fix(#1234567890)                                                                                             |
 | postfix             | false    | )                                    | String that must occur right after the item ID, like ")" for fix(#1234567890)                                                                                               |
 | multiple            | false    | true                                 | String that must occur right after the item ID, like ")" for fix(#1234567890)                                                                                               |
+| monday-organization | false    | polygonsoftware                      | Monday.com organization name - used to generate the directlinks in the action output message                                                                                |
+
+## Examples
+
+### Mark items mentioned in a PR Title as 'In PR' and comment on PR which items were updated
+
+```yaml
+on:
+  pull_request:
+    branches: [master, main]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+          
+      - name: Use Github Action to set Status of item on monday.com
+        id: monday-state
+        uses: polygon-software/action-monday-state@main
+        with:
+          monday-token: ${{ secrets.MONDAY_TOKEN }}
+          text: ${{ github.event.pull_request.title }}
+          status-column-title: 'Development Stage'
+          status: 'In PR'
+
+      - name: Comment PR
+        uses: polygon-software/actions-comment-pull-request@v1
+        with:
+          message: ${{ steps.monday-state.outputs.message }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
 
 ## Credits
 
