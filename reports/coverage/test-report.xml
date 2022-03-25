@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\joel\Documents\Git\action-monday-state\test\monday.test.js">
-        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="781"/>
-        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="360"/>
-        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="277"/>
-        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="249"/>
-        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="1291"/>
+    <file path="/home/runner/work/action-monday-state/action-monday-state/test/monday.test.js">
+        <testCase name="1. Board Resolving 1.1: Resolve Board ID by Item" duration="369"/>
+        <testCase name="1. Board Resolving 1.2: Handle unavailable item" duration="204"/>
+        <testCase name="2. Column ID Resolving 2.1: Resolve Column ID by Title" duration="372"/>
+        <testCase name="2. Column ID Resolving 2.2: Handle unavailable column" duration="393"/>
+        <testCase name="3. Change Status column 3.1: Change status column to valid value" duration="1116"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.1: Parse from simple strings" duration="2"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.2: Fail if string contains no ID" duration="3"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.2: Fail if string contains no ID" duration="1"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.3: Parse with prefix and postfix" duration="0"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.4: Parse Semantic PR Title" duration="1"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.5: Parse Semantic PR Title with specified prefix/postfix" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.5: Parse Semantic PR Title with specified prefix/postfix" duration="0"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.6: Parse commit message" duration="1"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="1"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.7: Fail if ID is too long / too short" duration="0"/>
         <testCase name="4: Parse Monday.com Item IDs from String 4.8: Multiple IDs can be extracted" duration="1"/>
-        <testCase name="4: Parse Monday.com Item IDs from String 4.9: Multiple IDs are only extracted once" duration="1"/>
-        <testCase name="5: Read item Status 5.1: Get Status of Item" duration="257"/>
-        <testCase name="5: Read item Status 5.1: Get Status of Item that has no status set" duration="351"/>
-        <testCase name="6: Get Item Names 6.1: Get Item Name" duration="514"/>
-        <testCase name="7: Integration test for whole action 7.1: Simple usecase" duration="1545"/>
+        <testCase name="4: Parse Monday.com Item IDs from String 4.9: Multiple IDs are only extracted once" duration="0"/>
+        <testCase name="5: Read item Status 5.1: Get Status of Item" duration="265"/>
+        <testCase name="5: Read item Status 5.1: Get Status of Item that has no status set" duration="195"/>
+        <testCase name="6: Get Item Names 6.1: Get Item Name" duration="190"/>
+        <testCase name="7: Integration test for whole action 7.1: Simple usecase" duration="1282"/>
     </file>
 </testExecutions>
