@@ -1,4 +1,4 @@
-name: Example - Set Status on PR from any -> dev
+name: Example - PR Reviewed
 
 on:
   pull_request_review:
@@ -15,7 +15,7 @@ jobs:
         if: ${{ github.review.state == 'commented' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.pull_request.title }}
+          text: ${{ github.event.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'
@@ -26,7 +26,7 @@ jobs:
         if: ${{ github.review.state == 'approved' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.pull_request.title }}
+          text: ${{ github.event.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'
@@ -37,7 +37,7 @@ jobs:
         if: ${{ github.review.state == 'rejected' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
-          text: ${{ github.pull_request.title }}
+          text: ${{ github.event.title }}
           prefix: '#'
           status-column-id: 'status'
           set-status: 'Commented'

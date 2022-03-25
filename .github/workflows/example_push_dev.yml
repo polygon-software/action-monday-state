@@ -1,4 +1,4 @@
-name: Example - Set Status on PR from any -> dev
+name: Example - Push Dev
 
 on:
   push:
