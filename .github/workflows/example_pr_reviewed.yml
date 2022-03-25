@@ -8,11 +8,13 @@ jobs:
   set-status:
     runs-on: ubuntu-latest
     steps:
+      - name: Print output
+        run: echo ${{ github.event.review.state }} - ${{ github.event.pull_request.title }}
 
       # If PR was 'COMMENTED'
       - name: Use own action to set status of item
         uses: polygon-software/action-monday-state@main
-        if: ${{ github.review.state == 'commented' }}
+        if: ${{ github.event.review.state == 'commented' }}
         with:
           monday-token: ${{ secrets.MONDAY_TOKEN }}
           text: ${{ github.event.pull_request.title }}
