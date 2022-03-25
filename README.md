@@ -60,6 +60,20 @@ jobs:
 | multiple            | false    | true                                 | String that must occur right after the item ID, like ")" for fix(#1234567890)                                                                                               |
 | monday-organization | false    | polygonsoftware                      | Monday.com organization name - used to generate the directlinks in the action output message                                                                                |
 
+## Outputs
+
+| Variable           | Example              | Description                                                                                                     |
+|--------------------|:---------------------|:----------------------------------------------------------------------------------------------------------------|
+| item-ids           | 1234465546,459765765 | Comma separated list of IDs that got updated through the action                                                 |
+| message            | *See example below   | A Markdown formatted message containing links to all items that were updated. Perfect to attach as a PR comment |
+
+
+**\*Example of a message:**
+```markdown
+The status of the following items has been referenced on monday.com:
+- [State Before] Github Action Monday State: JEST [↪](https://polygonsoftware.monday.com/boards/2453434889/pulses/2453434956)
+```
+
 ## Examples
 
 ### Mark items mentioned in a PR Title as 'In PR' and comment on PR which items were updated

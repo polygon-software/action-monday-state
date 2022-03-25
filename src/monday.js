@@ -176,7 +176,7 @@ export async function action({
   const itemIds = parseItemIds(text, { prefix, postfix, multiple })
   core.debug(`Parsed text, found Item with IDs ${JSON.stringify(itemIds)}`)
 
-  const messagePrefix = 'The following items have been referenced on monday.com:\n';
+  const messagePrefix = 'The status of the following items has been referenced on monday.com:\n';
   const itemMessages = [];
 
   await Promise.all(itemIds.map(async (itemId) => {
@@ -200,7 +200,7 @@ export async function action({
     itemMessages.push(itemMessage);
   }));
 
-  const message = `${messagePrefix}\n${itemMessages.join(' ')}`
+  const message = `${messagePrefix} ${itemMessages.join(' ')}`
   return {
     itemIds: itemIds.filter(Boolean),
     message,

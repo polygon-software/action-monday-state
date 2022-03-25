@@ -117,7 +117,6 @@ describe('7: Integration test for whole action', () => {
       text: `fix(#${TEST_ITEM_ID}): Finished item on monday.com`,
       statusColumnTitle: TEST_COLUMN_TITLE,
       status: TEST_STATE_BEFORE,
-      mondayOrganization: 'polygonsoftware'
     })
     expect(itemIds).toEqual([TEST_ITEM_ID]);
   })
