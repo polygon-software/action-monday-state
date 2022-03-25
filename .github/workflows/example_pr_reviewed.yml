@@ -2,7 +2,7 @@ name: Example - PR Reviewed
 
 on:
   pull_request_review:
-    branches: [main, master, dev]
+    types: [submitted, edited]
 
 jobs:
   set-status:
