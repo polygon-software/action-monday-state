@@ -1,6 +1,6 @@
 {
   "name": "action-monday-state",
-  "version": "1.2203.33",
+  "version": "1.2203.34",
   "main": "src/index.js",
   "files": [
     "dist/*"
